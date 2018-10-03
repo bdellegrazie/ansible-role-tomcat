@@ -1,0 +1,87 @@
+---
+  # CATALINA_BASE is the instance directory
+- name: Configure CATALINA_BASE
+  become: true
+  file:
+    path: "{{ tomcat_catalina_base ~ '/' ~ item }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    mode: "u=rwx,g=rx,o="
+    state: directory
+  with_items:
+    - ""
+    - "bin"
+    - "conf"
+    - "conf/Catalina"           # assumes engine name is catalina
+    - "conf/Catalina/localhost" # assumes virtual host is localhost
+    - "lib"
+    - "logs"
+    - "shared"
+    - "shared/classes"
+    - "shared/lib"
+    - "temp"
+    - "webapps"
+    - "work"
+  notify: Restart Tomcat
+
+- name: Copy Tomcat Configuration (if not present)
+  become: true
+  copy:
+    src: "{{ tomcat_catalina_home ~ '/' ~ item }}"
+    dest: "{{ tomcat_catalina_base ~ '/' ~ item  }}"
+    remote_src: true
+    force: false
+    group: "{{ tomcat_group }}"
+    owner: "{{ tomcat_user }}"
+    mode: "u=rw,g=r,o="
+  with_items:
+    - conf/catalina.policy
+    - conf/catalina.properties
+    - conf/context.xml
+    - conf/server.xml
+    - conf/tomcat-users.xml
+    - conf/tomcat-users.xsd
+    - conf/web.xml
+  notify: Restart Tomcat
+
+- name: Copy Tomcat Configuration 8.5/9 (if not present)
+  become: true
+  copy:
+    src: "{{ tomcat_catalina_home ~ '/' ~ item }}"
+    dest: "{{ tomcat_catalina_base ~ '/' ~ item }}"
+    remote_src: true
+    force: false
+    group: "{{ tomcat_group }}"
+    owner: "{{ tomcat_user }}"
+    mode: "u=rw,g=r,o="
+  with_items:
+    - conf/jaspic-providers.xml
+    - conf/jaspic-providers.xsd
+  when: "(tomcat_version is version_compare('8.5.0','>='))"
+  notify: Restart Tomcat
+
+- name: Copy Tomcat Logging Configuration (if log4j2 not enabled)
+  become: true
+  copy:
+    src: "{{ tomcat_catalina_home ~ '/conf/logging.properties' }}"
+    dest: "{{ tomcat_catalina_base ~ '/conf/logging.properties' }}"
+    remote_src: true
+    force: false
+    group: "{{ tomcat_group }}"
+    owner: "{{ tomcat_user }}"
+    mode: "u=rw,g=r,o="
+  when: not (tomcat_log4j2_enable | bool)
+  notify: Restart Tomcat
+
+- name: Ensure shared classloader is configured
+  become: true
+  lineinfile:
+    dest: "{{ tomcat_catalina_base ~ '/conf/catalina.properties' }}"
+    backrefs: true
+    group: "{{ tomcat_group }}"
+    owner: "{{ tomcat_user }}"
+    mode: "u=rw,g=r,o="
+    line: 'shared.loader="${catalina.base}/shared","${catalina.base}/shared/*.jar","${catalina.home}/shared","${catalina.home}/shared/*.jar"'
+    regexp: "^shared.loader="
+    state: present
+  notify: Restart Tomcat

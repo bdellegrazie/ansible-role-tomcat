@@ -1,0 +1,6 @@
+---
+tomcat_dependencies:
+  - gzip
+  - python-lxml
+  - tar
+  - tomcat-native

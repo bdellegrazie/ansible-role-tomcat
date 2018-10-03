@@ -1,0 +1,67 @@
+---
+- name: OS Dependent Vars
+  include_vars: "family-{{ ansible_os_family | lower }}.yml"
+
+- name: Dependencies
+  become: true
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ tomcat_dependencies }}"
+  notify: Restart Tomcat
+
+- name: Create Group
+  become: true
+  group:
+    name: "{{ tomcat_group }}"
+    gid: "{{ tomcat_group_gid | default(omit) }}"
+    state: present
+    system: true
+  when: tomcat_group_manage | bool
+  notify: Restart Tomcat
+
+- name: Create User
+  become: true
+  user:
+    name: "{{ tomcat_user }}"
+    uid: "{{ tomcat_user_uid | default(omit) }}"
+    group: "{{ tomcat_group }}"
+    home: "{{ tomcat_user_home }}"
+    shell: "/usr/sbin/nologin"
+    state: present
+    system: true
+  when: tomcat_user_manage | bool
+  notify: Restart Tomcat
+
+- name: Necessary Dirs
+  become:
+  file:
+    path: "{{ tomcat_cache_dir }}"
+    state: directory
+  with_items:
+    - "{{ tomcat_cache_dir }}"
+    - "{{ tomcat_expand_dir }}"
+  notify: Restart Tomcat
+
+- name: Download Tomcat
+  become: true
+  maven_artifact:
+    artifact_id: tomcat
+    dest: "{{ tomcat_cache_dir }}/tomcat-{{ tomcat_version }}.tar.gz"
+    extension: tar.gz
+    group_id: org.apache.tomcat
+    repository_url: "{{ tomcat_maven_repository_url | default(omit) }}"
+    version: "{{ tomcat_version }}"
+    validate_certs: "{{ tomcat_maven_validate_certs | bool }}"
+  notify: Restart Tomcat
+
+- name: Expand Tomcat
+  become: true
+  unarchive:
+    dest: "{{ tomcat_expand_dir }}"
+    src: "{{ tomcat_cache_dir }}/tomcat-{{ tomcat_version }}.tar.gz"
+    remote_src: true
+    creates: "{{ tomcat_expand_dir }}/apache-tomcat-{{ tomcat_version }}"
+    owner: root
+    group: "{{ tomcat_group }}"
+  notify: Restart Tomcat

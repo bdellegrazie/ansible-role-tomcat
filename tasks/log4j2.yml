@@ -1,0 +1,66 @@
+---
+- name: Check Tomcat Minimum Version
+  assert:
+    msg: "Log4j2 support requires Tomcat Version >= 8.5.0"
+    that: "tomcat_version is version_compare('8.5.0','>=')"
+
+- name: Log4j2 Dirs
+  become: true
+  file:
+    path: "{{ item }}"
+    group: "{{ tomcat_group }}"
+    owner: "{{ tomcat_user }}"
+    mode: "u=rwx,g=rx,o="
+    state: directory
+  with_items:
+    - "{{ tomcat_catalina_base }}/log4j2"
+    - "{{ tomcat_catalina_base }}/log4j2/conf"
+    - "{{ tomcat_catalina_base }}/log4j2/lib"
+  notify: Restart Tomcat
+
+- name: Log4j2 Libs
+  become: true
+  maven_artifact:
+    dest: "{{ tomcat_catalina_base ~ '/log4j2/lib/' ~ item ~ '-' ~ tomcat_log4j2_version ~ '.jar' }}"
+    artifact_id: "{{ item }}"
+    group_id: "org.apache.logging.log4j"
+    repository_url: "{{ tomcat_maven_repository_url | default(omit) }}"
+    version: "{{ tomcat_log4j2_version }}"
+    validate_certs: "{{ tomcat_maven_validate_certs | bool }}"
+  with_items:
+    - "log4j-api"
+    - "log4j-core"
+    - "log4j-appserver"
+  notify: Restart Tomcat
+
+- name: Log4j2 Lib Permissions
+  become: true
+  file:
+    path: "{{ tomcat_catalina_base ~ '/log4j2/lib/' ~ item ~ '-' ~ tomcat_log4j2_version ~ '.jar' }}"
+    group: "{{ tomcat_group }}"
+    owner: "{{ tomcat_user }}"
+    mode: "u=rw,g=r,o="
+    state: file
+  with_items:
+    - "log4j-api"
+    - "log4j-core"
+    - "log4j-appserver"
+  notify: Restart Tomcat
+
+- name: Remove logging.properties (if Logj2 enabled)
+  become: true
+  file:
+    path: "{{ tomcat_catalina_base ~ '/conf/logging.properties' }}"
+    state: absent
+  notify: Restart Tomcat
+
+- name: Log4j2 Configuration
+  become: true
+  template:
+    src: "{{ tomcat_log4j2_conf_template }}"
+    dest: '{{ tomcat_catalina_base ~ "/log4j2/conf/" ~ (tomcat_log4j2_conf_template | basename | regex_replace("\.j2","")) }}'
+    group: "{{ tomcat_group }}"
+    owner: "{{ tomcat_user }}"
+    mode: "u=rw,g=r,o="
+  when: tomcat_log4j2_conf_copy | bool
+  notify: Restart Tomcat

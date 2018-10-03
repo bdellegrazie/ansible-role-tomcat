@@ -1,0 +1,52 @@
+---
+tomcat_version: '9.0.12'
+
+tomcat_cache_dir: /var/cache/ansible
+tomcat_expand_dir: /opt
+
+#tomcat_maven_repository_url:
+tomcat_maven_validate_certs: true
+
+tomcat_group_manage: true
+tomcat_group: tomcat
+#tomcat_group_gid: nnn
+
+tomcat_user_manage: true
+tomcat_user: tomcat
+#tomcat_user_gid: nnn
+tomcat_user_home: /var/lib/tomcat
+
+tomcat_catalina_home: "{{ tomcat_expand_dir }}/apache-tomcat-{{ tomcat_version }}"
+tomcat_catalina_base: /var/lib/tomcat
+tomcat_jre_home: /usr/lib/jvm/jre
+tomcat_java_home: /usr/lib/jvm/jdk
+tomcat_jdk_use: false
+
+tomcat_java_opts:
+  - "-Djava.awt.headless=true"
+  - "-Djava.security.egd=file:/dev/./urandom"
+
+tomcat_catalina_heap_min_mb: '512'
+tomcat_catalina_heap_max_mb: '1024'
+
+tomcat_catalina_opts:
+  - "-server"
+  - "-XX:+UseParallelGC"
+  - "-Xms{{ tomcat_catalina_heap_min_mb }}M"
+  - "-Xmx{{ tomcat_catalina_heap_max_mb }}M"
+
+tomcat_catalina_classpath_log4j2:
+  - '${CATALINA_BASE}/log4j2/lib/*'
+  - '${CATALINA_BASE}/log4j2/conf'
+
+tomcat_catalina_classpath: "{{ tomcat_log4j2_enable | ternary(tomcat_catalina_classpath_log4j2, []) | list }}"
+
+tomcat_log4j2_enable: true
+tomcat_log4j2_version: '2.11.1'
+tomcat_log4j2_conf_template: 'log4j2-tomcat.xml.j2'
+tomcat_log4j2_conf_copy: true
+
+tomcat_service_manage: true
+tomcat_service_enable: true
+tomcat_service_notify: true
+tomcat_service_state: started

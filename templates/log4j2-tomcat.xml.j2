@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Properties>
+    <Property name="baseDir">${env:CATALINA_BASE}/logs</Property>
+  </Properties>
+
+  <Appenders>
+    <RollingRandomAccessFileAppender name="ROLLING" fileName="" filePattern="${baseDir:-logs}/catalina.log">
+      <Policies>
+        <OnStartupTriggeringPolicy />
+        <TimeBasedTriggeringPolicy />
+      </Policies>
+      <PatternLayout>
+        <pattern>%d{ISO8601} %p %c{1.} [%t] %m%n</pattern>
+      </PatternLayout>
+    </File>
+
+  </Appenders>
+  <Loggers>
+    <Root level="DEBUG">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>

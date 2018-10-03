@@ -1,0 +1,6 @@
+---
+- include: install.yml
+- include: configure.yml
+- include: log4j2.yml
+  when: tomcat_log4j2_enable | bool
+- include: service.yml

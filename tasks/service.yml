@@ -1,0 +1,30 @@
+---
+- name: Systemd Unit File
+  become: true
+  template:
+    dest: /etc/systemd/system/tomcat.service
+    src: tomcat.systemd.j2
+    group: root
+    owner: root
+    mode: "u=rw,go=r"
+  notify:
+    - Systemd Daemon-Reload
+    - Restart Tomcat
+  when:
+   - tomcat_service_manage | bool
+   - ansible_service_mgr == 'systemd'
+
+- name: Service on Boot
+  become: true
+  service:
+    name: tomcat
+    enabled: "{{ tomcat_service_enable | bool }}"
+  when: tomcat_service_manage | bool
+
+- name: Service State
+  become: true
+  service:
+    name: tomcat
+    state: "{{ tomcat_service_state }}"
+  register: _tomcat_service_state
+  when: tomcat_service_manage | bool

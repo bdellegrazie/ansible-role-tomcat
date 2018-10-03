@@ -1,0 +1,32 @@
+[Unit]
+Description=Apache Tomcat Web Application Container
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+{% if tomcat_jdk_use %}
+Environment=JAVA_HOME={{ tomcat_java_home }}
+{% else %}
+Environment=JRE_HOME={{ tomcat_jre_home }}
+{% endif %}
+Environment='JAVA_OPTS={{ tomcat_java_opts | join(" ") }}'
+Environment=CATALINA_PID={{ tomcat_catalina_base }}/temp/tomcat.pid
+Environment=CATALINA_HOME={{ tomcat_catalina_home }}
+Environment=CATALINA_BASE={{ tomcat_catalina_base }}
+Environment='CATALINA_OPTS={{ tomcat_catalina_opts | join(" ") }}'
+{% if tomcat_catalina_classpath | length > 0 %}
+# bootclasspath
+Environment='CLASSPATH={{ tomcat_catalina_classpath | join(":") }}'
+{% endif %}
+ExecStart={{ tomcat_catalina_home }}/bin/startup.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+User={{ tomcat_user }}
+Group={{ tomcat_group }}
+UMask=0007
+RestartSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

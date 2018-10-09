@@ -15,6 +15,10 @@
     - "conf/Catalina"           # assumes engine name is catalina
     - "conf/Catalina/localhost" # assumes virtual host is localhost
     - "lib"
+    - "lib/org"
+    - "lib/org/apache"
+    - "lib/org/apache/catalina"
+    - "lib/org/apache/catalina/util"
     - "shared"
     - "shared/classes"
     - "shared/lib"
@@ -106,7 +110,7 @@
   when: not (tomcat_log4j2_enable | bool)
   notify: Restart Tomcat
 
-- name: Ensure shared classloader is configured
+- name: Shared Classloader
   become: true
   lineinfile:
     dest: "{{ tomcat_catalina_base ~ '/conf/catalina.properties' }}"
@@ -117,4 +121,24 @@
     line: 'shared.loader="${catalina.base}/shared","${catalina.base}/shared/*.jar","${catalina.home}/shared","${catalina.home}/shared/*.jar"'
     regexp: "^shared.loader="
     state: present
+  notify: Restart Tomcat
+
+- name: Show ServerInfo on Errors
+  become: true
+  file:
+    path: "{{ tomcat_catalina_base ~ '/lib/org/apache/catalina/util/ServerInfo.properties' }}"
+    state: absent
+  when: not (tomcat_secure_serverinfo_hide | bool)
+  notify: Restart Tomcat
+
+- name: Hide ServerInfo on Errors
+  become: true
+  copy:
+    content: |
+      server.info={{ tomcat_secure_serverinfo }}
+    dest: "{{ tomcat_catalina_base ~ '/lib/org/apache/catalina/util/ServerInfo.properties' }}"
+    group: "{{ tomcat_group }}"
+    owner: root
+    mode: "u=rw,g=r,o="
+  when: tomcat_secure_serverinfo_hide | bool
   notify: Restart Tomcat

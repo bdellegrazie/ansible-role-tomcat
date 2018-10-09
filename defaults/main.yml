@@ -25,6 +25,14 @@ tomcat_jdk_use: false
 # Optional
 #tomcat_server_xml_template: "9.0/server.xml.j2"
 #tomcat_web_xml_template: "9.0/web.xml.j2"
+#tomcat_ssl_enable: false
+#tomcat_access_log_enable: true
+tomcat_secure_serverinfo_hide: false
+tomcat_secure_serverinfo: "Web Server"
+tomcat_secure_httpheader_filter: false
+tomcat_secure_setcharacterencoding_filter: false
+tomcat_secure_failedrequest_filter: false
+tomcat_secure_session_timeout_min: 30
 
 tomcat_java_opts:
   - "-Djava.awt.headless=true"

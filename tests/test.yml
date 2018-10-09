@@ -8,6 +8,11 @@
     - role: role_under_test
       tomcat_server_xml_template: "9.0/server.xml.j2"
       tomcat_web_xml_template: "9.0/web.xml.j2"
+      tomcat_secure_serverinfo_hide: true
+      tomcat_secure_httpheader_filter: false
+      tomcat_secure_setcharacterencoding_filter: true
+      tomcat_secure_failedrequest_filter: true
+
   post_tasks:
     - name: Test WebApp
       copy:

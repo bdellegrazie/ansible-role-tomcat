@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
+{{ ansible_managed | comment('xml') }}
+{#
   Specific Limitations:
 
   1. Security Listener is enabled, default umask 0002
@@ -10,7 +11,7 @@
   6. auto deploy and auto-expansion *disabled* - put context.xml for each webapp in conf/Catalina/localhost/<context>.xml instead
 
   Use this as an example to implement your own
--->
+#}
 <Server port="-1" shutdown="SHUTDOWN">
   <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
   <Listener className="org.apache.catalina.security.SecurityListener" />
@@ -29,7 +30,7 @@
       redirectPort="8443"
     />
 
-{% if tomcat_ssl_enable is defined and tomcat_ssl_enabled | bool %}
+{% if tomcat_ssl_enable is defined and tomcat_ssl_enable | bool %}
     <Connector
       port="8443"
       protocol="org.apache.coyote.http11.Http11Nio2Protocol"
@@ -46,15 +47,26 @@
 
 {% endif %}
     <Engine name="Catalina" defaultHost="localhost">
-      <Host name="localhost"  appBase="webapps"
-            unpackWARs="false"
-            autoDeploy="false"
+      <Host name="localhost"
+        appBase="webapps"
+        autoDeploy="false"
+        deployXML="false"
+        unpackWARs="false"
       >
 
-      <Valve className="org.apache.catalina.valves.AccessLogValve"
-             directory="logs"
-             prefix="localhost_access_log" suffix=".txt"
-             pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+        <Valve className="org.apache.catalina.valves.ErrorReportValve"
+          showServerInfo="false"
+        />
+
+{% if tomcat_access_log_bool is defined and tomcat_access_log_enable | bool %}
+        <Valve className="org.apache.catalina.valves.AccessLogValve"
+          directory="logs"
+          pattern="%h %l %u %t &quot;%r&quot; %s %b"
+          prefix="localhost_access_log"
+          suffix=".txt"
+        />
+
+{% endif %}
       </Host>
     </Engine>
   </Service>

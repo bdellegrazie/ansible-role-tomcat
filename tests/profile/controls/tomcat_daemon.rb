@@ -13,4 +13,9 @@ control 'tomcat' do
     it { should be_enabled }
     it { should be_running }
   end
+
+  describe http('http://localhost:8080/', open_timeout: 10, read_timeout: 10) do
+    its('status') { should eq 200 }
+    its('body') { should cmp /<title>Apache Tomcat.*<\/title>/ }
+  end
 end

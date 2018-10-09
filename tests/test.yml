@@ -8,3 +8,16 @@
     - role: role_under_test
       tomcat_server_xml_template: "9.0/server.xml.j2"
       tomcat_web_xml_template: "9.0/web.xml.j2"
+  post_tasks:
+    - name: Test WebApp
+      copy:
+        dest: "{{ tomcat_catalina_base ~ '/conf/Catalina/localhost/ROOT.xml' }}"
+        group: "{{ tomcat_group }}"
+        owner: "root"
+        mode: "u=rw,g=r,o="
+        force: true
+        content: |
+          <?xml version="1.0" encoding="UTF-8"?>
+          <Context docBase="{{ tomcat_catalina_home ~ '/webapps/ROOT' }}" />
+
+      notify: Restart Tomcat

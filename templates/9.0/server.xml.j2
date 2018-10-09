@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Specific Limitations:
+
+  1. Security Listener is enabled, default umask 0002
+  2. APR is enabled, use OpenSSL configuration
+  3. NIO2 Connector is used
+  4. Common Executor between http and https is configured, with 200 threads
+  5. No Shutdown Port is permitted, must use systemd for start/stop
+  6. auto deploy and auto-expansion *disabled* - put context.xml for each webapp in conf/Catalina/localhost/<context>.xml instead
+
+  Use this as an example to implement your own
+-->
+<Server port="-1" shutdown="SHUTDOWN">
+  <Listener className="org.apache.catalina.startup.VersionLoggerListener" />
+  <Listener className="org.apache.catalina.security.SecurityListener" />
+  <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+  <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
+  <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
+  <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+
+  <GlobalNamingResources />
+
+  <Service name="Catalina">
+    <Connector
+      connectionTimeout="20000"
+      port="8080"
+      protocol="org.apache.coyote.http11.Http11Nio2Protocol"
+      redirectPort="8443"
+    />
+
+{% if tomcat_ssl_enable is defined and tomcat_ssl_enabled | bool %}
+    <Connector
+      port="8443"
+      protocol="org.apache.coyote.http11.Http11Nio2Protocol"
+      SSLEnabled="true"
+      >
+        <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+        <SSLHostConfig>
+          <Certificate certificateKeyFile="conf/localhost-rsa-key.pem"
+                       certificateFile="conf/localhost-rsa-cert.pem"
+                       certificateChainFile="conf/localhost-rsa-chain.pem"
+                       type="RSA" />
+        </SSLHostConfig>
+    </Connector>
+
+{% endif %}
+    <Engine name="Catalina" defaultHost="localhost">
+      <Host name="localhost"  appBase="webapps"
+            unpackWARs="false"
+            autoDeploy="false"
+      >
+
+      <Valve className="org.apache.catalina.valves.AccessLogValve"
+             directory="logs"
+             prefix="localhost_access_log" suffix=".txt"
+             pattern="%h %l %u %t &quot;%r&quot; %s %b" />
+      </Host>
+    </Engine>
+  </Service>
+</Server>

@@ -1,5 +1,10 @@
 ---
 - hosts: all
+  pre_tasks:
+    - debug:
+        msg: "Ansible Version: {{ ansible_version.full }}"
   roles:
     - geerlingguy.java
-    - role_under_test
+    - role: role_under_test
+      tomcat_server_xml_template: "9.0/server.xml.j2"
+      tomcat_web_xml_template: "9.0/web.xml.j2"

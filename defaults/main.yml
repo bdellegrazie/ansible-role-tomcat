@@ -13,7 +13,7 @@ tomcat_group: tomcat
 
 tomcat_user_manage: true
 tomcat_user: tomcat
-#tomcat_user_gid: nnn
+#tomcat_user_uid: nnn
 tomcat_user_home: /var/lib/tomcat
 
 tomcat_catalina_home: "{{ tomcat_expand_dir }}/apache-tomcat-{{ tomcat_version }}"
@@ -21,6 +21,10 @@ tomcat_catalina_base: /var/lib/tomcat
 tomcat_jre_home: /usr/lib/jvm/jre
 tomcat_java_home: /usr/lib/jvm/jdk
 tomcat_jdk_use: false
+
+# Optional
+#tomcat_server_xml_template: "9.0/server.xml.j2"
+#tomcat_web_xml_template: "9.0/web.xml.j2"
 
 tomcat_java_opts:
   - "-Djava.awt.headless=true"

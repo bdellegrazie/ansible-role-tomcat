@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 {{ ansible_managed | comment('xml') }}
 {#
   Specific Limitations:
@@ -37,9 +37,10 @@
       protocol="org.apache.coyote.http11.Http11Nio2Protocol"
       server="{{ tomcat_secure_serverinfo }}"
       SSLEnabled="true"
+      SSLProtocol="TLSv1.2"
       >
         <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
-        <SSLHostConfig protocols="TLSv1.2">
+        <SSLHostConfig>
           <Certificate certificateKeyFile="conf/localhost-rsa-key.pem"
                        certificateFile="conf/localhost-rsa-cert.pem"
                        certificateChainFile="conf/localhost-rsa-chain.pem"

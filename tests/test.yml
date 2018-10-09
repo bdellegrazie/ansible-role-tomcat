@@ -1,5 +1,8 @@
 ---
 - hosts: all
+  vars:
+    tomcat_version: "9.0.12"
+    java_packages: "{{ 'java-1.8.0-openjdk' if ansible_os_family | lower == 'redhat' else 'openjdk-8-jre-headless' }}"
   pre_tasks:
     - debug:
         msg: "Ansible Version: {{ ansible_version.full }}"
@@ -8,6 +11,8 @@
     - role: role_under_test
       tomcat_server_xml_template: "9.0/server.xml.j2"
       tomcat_web_xml_template: "9.0/web.xml.j2"
+      tomcat_log4j2_enable: true
+      tomcat_access_log_enable: true
       tomcat_secure_serverinfo_hide: true
       tomcat_secure_httpheader_filter: false
       tomcat_secure_setcharacterencoding_filter: true
@@ -24,5 +29,4 @@
         content: |
           <?xml version="1.0" encoding="UTF-8"?>
           <Context docBase="{{ tomcat_catalina_home ~ '/webapps/ROOT' }}" />
-
       notify: Restart Tomcat

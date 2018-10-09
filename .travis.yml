@@ -6,11 +6,11 @@ env:
     - distro: centos7
     #- distro: centos6 Disabled until upstream Dockerfile change to support SNI merged
     #- distro: fedora27
-    #- distro: ubuntu1804
+    - distro: ubuntu1804
     #- distro: ubuntu1604
     #- distro: ubuntu1404
     #- distro: ubuntu1204
-    #- distro: debian9
+    - distro: debian9
     #- distro: debian8
 
 language: ruby
@@ -44,16 +44,16 @@ script:
   # Clean up
   - docker rm -f ${container_id}
 
-#stages:
-#  - lint
-#  - test
+stages:
+  - lint
+  - test
 
-#jobs:
-#  include:
-#    - stage: lint
-#      before_install: pip install --user pre-commit
-#      install: pre-commit install
-#      script: pre-commit run --all-files
+jobs:
+  include:
+    - stage: lint
+      before_install: pip install --user pre-commit
+      install: pre-commit install
+      script: pre-commit run --all-files
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

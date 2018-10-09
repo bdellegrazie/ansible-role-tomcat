@@ -118,7 +118,7 @@
     group: "{{ tomcat_group }}"
     owner: "root"
     mode: "u=rw,g=r,o="
-    line: 'shared.loader="${catalina.base}/shared","${catalina.base}/shared/*.jar","${catalina.home}/shared","${catalina.home}/shared/*.jar"'
+    line: 'shared.loader="${catalina.base}/shared","${catalina.base}/shared/*.jar"'
     regexp: "^shared.loader="
     state: present
   notify: Restart Tomcat

@@ -39,7 +39,7 @@
       SSLEnabled="true"
       >
         <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
-        <SSLHostConfig>
+        <SSLHostConfig protocols="TLSv1.2">
           <Certificate certificateKeyFile="conf/localhost-rsa-key.pem"
                        certificateFile="conf/localhost-rsa-cert.pem"
                        certificateChainFile="conf/localhost-rsa-chain.pem"

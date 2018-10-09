@@ -67,3 +67,16 @@
     group: "{{ tomcat_group }}"
     mode: "u=rwx,g=rx,o="
   notify: Restart Tomcat
+
+- name: Uncomment Umask (Tomcat < 8.5)
+  become: true
+  lineinfile:
+    path: "{{ tomcat_catalina_home ~ '/bin/catalina.sh' }}"
+    group: "{{ tomcat_group }}"
+    backrefs: true
+    regexp: '^#(JAVA_OPTS="\$JAVA_OPTS -Dorg.apache.catalina.security.SecurityListener.UMASK=.*$)'
+    line: "\\1"
+    owner: root
+    mode: "u=rwx,g=rx,o="
+    state: present
+  when: tomcat_version is version_compare("8.5.0","<")

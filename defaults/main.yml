@@ -27,6 +27,8 @@ tomcat_jdk_use: false
 #tomcat_web_xml_template: "9.0/web.xml.j2"
 #tomcat_ssl_enable: false
 #tomcat_access_log_enable: true
+tomcat_secure_http_port: 8080
+tomcat_secure_https_port: 8443
 tomcat_secure_serverinfo_hide: false
 tomcat_secure_serverinfo: "Web Server"
 tomcat_secure_httpheader_filter: false

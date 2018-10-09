@@ -93,6 +93,7 @@
         <load-on-startup>3</load-on-startup>
     </servlet>
 
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>/</url-pattern>
@@ -104,6 +105,7 @@
         <url-pattern>*.jspx</url-pattern>
     </servlet-mapping>
 
+
 {% if tomcat_secure_httpheader_filter is defined and tomcat_secure_httpheader_filter | bool %}
     <filter>
         <filter-name>httpHeaderSecurity</filter-name>
@@ -112,7 +114,6 @@
     </filter>
 
 {% endif %}
-
 {% if tomcat_secure_setcharacterencoding_filter is defined and tomcat_secure_setcharacterencoding_filter | bool %}
     <filter>
         <filter-name>setCharacterEncodingFilter</filter-name>
@@ -125,7 +126,6 @@
     </filter>
 
 {% endif %}
-
 {% if tomcat_secure_failedrequest_filter is defined and tomcat_secure_failedrequest_filter | bool %}
     <filter>
         <filter-name>failedRequestFilter</filter-name>
@@ -145,7 +145,6 @@
     </filter-mapping>
 
 {% endif %}
-
 {% if tomcat_secure_setcharacterencoding_filter is defined and tomcat_secure_setcharacterencoding_filter | bool %}
     <filter-mapping>
         <filter-name>setCharacterEncodingFilter</filter-name>
@@ -153,17 +152,18 @@
     </filter-mapping>
 
 {% endif %}
-
 {% if tomcat_secure_failedrequest_filter is defined and tomcat_secure_failedrequest_filter | bool %}
     <filter-mapping>
         <filter-name>failedRequestFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+
 {% endif %}
 
     <session-config>
         <session-timeout>{{ tomcat_secure_session_timeout_min }}</session-timeout>
     </session-config>
+
 
     <mime-mapping>
         <extension>123</extension>
@@ -4235,6 +4235,7 @@
         <extension>zmm</extension>
         <mime-type>application/vnd.handheld-entertainment+xml</mime-type>
     </mime-mapping>
+
 
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

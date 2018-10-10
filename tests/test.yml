@@ -2,10 +2,13 @@
 - hosts: all
   vars:
     tomcat_version: "9.0.12"
-    java_packages: "{{ 'java-1.8.0-openjdk' if ansible_os_family | lower == 'redhat' else 'openjdk-8-jre-headless' }}"
   pre_tasks:
     - debug:
         msg: "Ansible Version: {{ ansible_version.full }}"
+    - name: update apt-utils
+      package:
+        name: apt-utils
+      when: "(ansible_os_family | lower) == 'debian'"
   roles:
     - geerlingguy.java
     - role: role_under_test

@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: tomcat
   author: Brett Delle Grazie
   description: Role to install Tomcat
 

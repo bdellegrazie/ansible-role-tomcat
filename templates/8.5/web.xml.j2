@@ -34,14 +34,8 @@
 
 {# JSP Compiler
   checkInterval: 300
-  classdebuginfo: false
   development: false
   displaySourceFragment: false
-  genStringAsCharArray: true
-  keepgenerated: false
-  mappedfile: false
-  jspIdleTimeout: 600
-  suppressSmap: true
 #}
     <servlet>
         <servlet-name>jsp</servlet-name>
@@ -59,36 +53,12 @@
             <param-value>300</param-value>
         </init-param>
         <init-param>
-            <param-name>classdebuginfo</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <init-param>
             <param-name>development</param-name>
             <param-value>false</param-value>
         </init-param>
         <init-param>
             <param-name>displaySourceFragment</param-name>
             <param-value>false</param-value>
-        </init-param>
-        <init-param>
-            <param-name>genStringAsCharArray</param-name>
-            <param-value>true</param-value>
-        </init-param>
-        <init-param>
-            <param-name>keepgenerated</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <init-param>
-            <param-name>mappedfile</param-name>
-            <param-value>false</param-value>
-        </init-param>
-        <init-param>
-            <param-name>jspIdleTimeout</param-name>
-            <param-value>600</param-value>
-        </init-param>
-        <init-param>
-            <param-name>suppressSmap</param-name>
-            <param-value>true</param-value>
         </init-param>
         <load-on-startup>3</load-on-startup>
     </servlet>

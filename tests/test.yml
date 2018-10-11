@@ -17,7 +17,7 @@
       tomcat_log4j2_enable: true
       tomcat_access_log_enable: true
       tomcat_secure_serverinfo_hide: true
-      tomcat_secure_httpheader_filter: false
+      tomcat_secure_httpheader_filter: true
       tomcat_secure_setcharacterencoding_filter: true
       tomcat_secure_failedrequest_filter: true
 
@@ -32,4 +32,5 @@
         content: |
           <?xml version="1.0" encoding="UTF-8"?>
           <Context docBase="{{ tomcat_catalina_home ~ '/webapps/ROOT' }}" />
+
       notify: Restart Tomcat

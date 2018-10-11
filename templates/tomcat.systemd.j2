@@ -27,6 +27,7 @@ Group={{ tomcat_group }}
 UMask=0007
 RestartSec=10
 Restart=always
+SuccessExitStatus=SIGKILL
 
 [Install]
 WantedBy=multi-user.target

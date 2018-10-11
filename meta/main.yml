@@ -9,22 +9,22 @@ galaxy_info:
   min_ansible_version: 2.0
 
   platforms:
-  - name: EL
-    versions:
-    - 6
-    - 7
-  - name: Fedora
-    versions:
-    - all
-  - name: Ubuntu
-    versions:
-    - all
-  - name: Debian
-    versions:
-    - all
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Fedora
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+    - name: Debian
+      versions:
+        - all
 
   galaxy_tags:
-  - apache-tomcat
-  - tomcat
+    - apache-tomcat
+    - tomcat
 
 dependencies: []

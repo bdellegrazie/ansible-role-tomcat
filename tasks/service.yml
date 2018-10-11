@@ -11,8 +11,8 @@
     - Systemd Daemon-Reload
     - Restart Tomcat
   when:
-   - tomcat_service_manage | bool
-   - ansible_service_mgr == 'systemd'
+    - tomcat_service_manage | bool
+    - ansible_service_mgr == 'systemd'
 
 - name: Service on Boot
   become: true

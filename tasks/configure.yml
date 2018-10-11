@@ -1,5 +1,5 @@
 ---
-  # CATALINA_BASE is the instance directory
+# CATALINA_BASE is the instance directory
 - name: CATALINA_BASE dirs (root owned)
   become: true
   file:
@@ -12,8 +12,8 @@
     - ""
     - "bin"
     - "conf"
-    - "conf/Catalina"           # assumes engine name is catalina
-    - "conf/Catalina/localhost" # assumes virtual host is localhost
+    - "conf/Catalina"            # assumes engine name is catalina
+    - "conf/Catalina/localhost"  # assumes virtual host is localhost
     - "lib"
     - "lib/org"
     - "lib/org/apache"

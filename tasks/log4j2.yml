@@ -9,7 +9,7 @@
   file:
     path: "{{ item }}"
     group: "{{ tomcat_group }}"
-    owner: "{{ tomcat_user }}"
+    owner: "root"
     mode: "u=rwx,g=rx,o="
     state: directory
   with_items:
@@ -38,7 +38,7 @@
   file:
     path: "{{ tomcat_catalina_base ~ '/log4j2/lib/' ~ item ~ '-' ~ tomcat_log4j2_version ~ '.jar' }}"
     group: "{{ tomcat_group }}"
-    owner: "{{ tomcat_user }}"
+    owner: "root"
     mode: "u=rw,g=r,o="
     state: file
   with_items:
@@ -60,7 +60,7 @@
     src: "{{ tomcat_log4j2_conf_template }}"
     dest: '{{ tomcat_catalina_base ~ "/log4j2/conf/" ~ (tomcat_log4j2_conf_template | basename | regex_replace("\.j2","")) }}'
     group: "{{ tomcat_group }}"
-    owner: "{{ tomcat_user }}"
+    owner: "root"
     mode: "u=rw,g=r,o="
   when: tomcat_log4j2_conf_copy | bool
   notify: Restart Tomcat

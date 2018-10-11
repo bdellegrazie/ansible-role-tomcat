@@ -22,7 +22,6 @@
     - "shared"
     - "shared/classes"
     - "shared/lib"
-    - "webapps"
   notify: Restart Tomcat
 
 - name: CATALINA_BASE dirs (tomcat owned)
@@ -36,6 +35,7 @@
   with_items:
     - "logs"
     - "temp"
+    - "webapps"
     - "work"
   notify: Restart Tomcat
 

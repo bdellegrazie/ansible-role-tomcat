@@ -36,7 +36,7 @@
 - name: Necessary Dirs
   become:
   file:
-    path: "{{ tomcat_cache_dir }}"
+    path: "{{ item }}"
     state: directory
   with_items:
     - "{{ tomcat_cache_dir }}"

@@ -1,0 +1,7 @@
+---
+- hosts: all
+  roles:
+    - role: geerlingguy.repo-epel
+      when: ansible_os_family | lower == 'redhat'
+    - geerlingguy.java
+    - bdellegrazie.ansible-role-serverspec_test_dependencies

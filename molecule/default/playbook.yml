@@ -1,17 +1,10 @@
 ---
-- hosts: all
+- name: Converge
+  hosts: all
   vars:
     tomcat_version: "9.0.12"
-  pre_tasks:
-    - debug:
-        msg: "Ansible Version: {{ ansible_version.full }}"
-    - name: update apt-utils
-      package:
-        name: apt-utils
-      when: "(ansible_os_family | lower) == 'debian'"
   roles:
-    - geerlingguy.java
-    - role: role_under_test
+    - role: ansible-role-tomcat
       tomcat_server_xml_template: "9.0/server.xml.j2"
       tomcat_web_xml_template: "9.0/web.xml.j2"
       tomcat_log4j2_enable: true
@@ -20,7 +13,7 @@
       tomcat_secure_httpheader_filter: true
       tomcat_secure_setcharacterencoding_filter: true
       tomcat_secure_failedrequest_filter: true
-
+      tomcat_service_force: true
   post_tasks:
     - name: Test WebApp
       copy:

@@ -16,7 +16,7 @@ control 'tomcat' do
 
   describe http('http://localhost:8080/', open_timeout: 10, read_timeout: 10) do
     its('status') { should eq 200 }
-    # title when ServerInfo hiding is enabled
+    # title implies ServerInfo hiding is enabled
     its('body') { should cmp %r{<title>Web Server</title>} }
   end
 end

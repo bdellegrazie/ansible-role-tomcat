@@ -15,4 +15,12 @@
   when:
     - not ansible_check_mode
     - tomcat_service_notify | bool
-    - _tomcat_service_state is not defined or _tomcat_service_state is not changed
+
+- name: Start Tomcat
+  become: true
+  service:
+    name: tomcat
+    state: "{{ (tomcat_service_state != 'stopped') | ternary('started','stopped') }}"
+  when:
+    - not ansible_check_mode
+    - tomcat_service_notify | bool

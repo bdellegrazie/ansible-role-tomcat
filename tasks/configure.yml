@@ -61,6 +61,17 @@
   when: tomcat_web_xml_template is defined
   notify: Restart Tomcat
 
+- name: Tomcat Configuration (context.xml)
+  become: true
+  template:
+    src: "{{ tomcat_context_xml_template }}"
+    dest: "{{ tomcat_catalina_base ~ '/conf/context.xml' }}"
+    group: "{{ tomcat_group }}"
+    owner: "root"
+    mode: "u=rw,g=r,o="
+  when: tomcat_context_xml_template is defined
+  notify: Restart Tomcat
+
 - name: Tomcat Configuration (common, if not present)
   become: true
   copy:

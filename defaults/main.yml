@@ -25,6 +25,7 @@ tomcat_jdk_use: false
 # Optional
 #tomcat_server_xml_template: "9.0/server.xml.j2"
 #tomcat_web_xml_template: "9.0/web.xml.j2"
+#tomcat_context_xml_template: "9.0/context.xml.j2"
 #tomcat_ssl_enable: false
 #tomcat_access_log_enable: true
 tomcat_secure_http_port: 8080

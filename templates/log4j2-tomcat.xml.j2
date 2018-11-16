@@ -13,12 +13,12 @@
       <PatternLayout>
         <pattern>%d{ISO8601} %p %c{1.} [%t] %m%n</pattern>
       </PatternLayout>
-    </File>
-
+    </RollingRandomAccessFileAppender>
   </Appenders>
+
   <Loggers>
     <Root level="DEBUG">
-      <AppenderRef ref="Console"/>
+      <AppenderRef ref="ROLLING"/>
     </Root>
   </Loggers>
 </Configuration>

@@ -1,31 +1,30 @@
 ---
-- name: Systemd Unit File
-  become: true
-  template:
-    dest: /etc/systemd/system/tomcat.service
-    src: tomcat.systemd.j2
-    group: root
-    owner: root
-    mode: "u=rw,go=r"
-  when:
-    - tomcat_service_manage | bool
-    - ansible_service_mgr == 'systemd'
-  notify:
-    - Systemd Daemon-Reload
-    - Restart Tomcat
+- block:
+    - name: Systemd Unit File
+      become: true
+      template:
+        dest: /etc/systemd/system/tomcat.service
+        src: tomcat.systemd.j2
+        group: root
+        owner: root
+        mode: "u=rw,go=r"
+      when:
+        - ansible_service_mgr == 'systemd'
+      notify:
+        - Systemd Daemon-Reload
+        - Restart Tomcat
 
-- name: Service on Boot
-  become: true
-  service:
-    name: tomcat
-    enabled: "{{ tomcat_service_enable | bool }}"
-  when: tomcat_service_manage | bool
+    - name: Service on Boot
+      become: true
+      service:
+        name: tomcat
+        enabled: "{{ tomcat_service_enable | bool }}"
 
-- name: Desired State
-  debug:
-    msg: "Configuring Desired State: {{ tomcat_service_state }}"
-  changed_when: true
-  check_mode: false
+    - name: Desired State
+      debug:
+        msg: "Configuring Desired State: {{ tomcat_service_state }}"
+      changed_when: true
+      check_mode: false
+      notify:
+        - "{{ 'Restart' if tomcat_service_state == 'restarted' else 'Start' }} Tomcat"
   when: tomcat_service_manage | bool
-  notify:
-    - "{{ 'Restart' if tomcat_service_state == 'restarted' else 'Start' }} Tomcat"

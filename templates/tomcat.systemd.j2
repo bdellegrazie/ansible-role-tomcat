@@ -25,6 +25,7 @@ ExecStop=/bin/kill -15 $MAINPID
 User={{ tomcat_user }}
 Group={{ tomcat_group }}
 UMask=0007
+LimitNOFILE={{ tomcat_limit_nofile | int }}
 RestartSec=10
 Restart=always
 SuccessExitStatus=SIGKILL

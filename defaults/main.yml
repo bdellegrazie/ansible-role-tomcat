@@ -61,6 +61,8 @@ tomcat_log4j2_version: '2.11.1'
 tomcat_log4j2_conf_template: 'log4j2-tomcat.xml.j2'
 tomcat_log4j2_conf_copy: true
 
+tomcat_limit_nofile: 16384
+
 tomcat_service_manage: true
 tomcat_service_enable: true
 tomcat_service_notify: true

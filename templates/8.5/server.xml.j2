@@ -51,9 +51,9 @@
     <Engine name="Catalina" defaultHost="localhost">
       <Host name="localhost"
         appBase="webapps"
-        autoDeploy="false"
-        deployXML="false"
-        unpackWARs="false"
+        autoDeploy="{{ tomcat_host_auto_deploy | bool | lower }}"
+        deployXML="{{ tomcat_host_deploy_xml | bool | lower }}"
+        unpackWARs="{{ tomcat_host_unpack_wars | bool | lower }}"
       >
 
         <Valve className="org.apache.catalina.valves.ErrorReportValve"

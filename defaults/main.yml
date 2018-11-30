@@ -64,6 +64,10 @@ tomcat_log4j2_conf_copy: true
 tomcat_limit_nofile: 16384
 tomcat_service_umask: "0007"
 
+tomcat_host_auto_deploy: false
+tomcat_host_deploy_xml: false
+tomcat_host_unpack_wars: false
+
 tomcat_service_mgr: "{{ ansible_service_mgr }}"
 tomcat_service_conf_systemd: tomcat.systemd.j2
 tomcat_service_conf_sysvinit: tomcat.sysvinit.j2

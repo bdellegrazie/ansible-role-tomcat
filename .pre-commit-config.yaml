@@ -9,7 +9,7 @@ repos:
     -   id: check-json
     -   id: end-of-file-fixer
 -   repo: https://github.com/adrienverge/yamllint.git
-    rev: v1.12.1
+    rev: v1.13.0
     hooks:
     -   id: yamllint
 -   repo: https://github.com/jumanjihouse/pre-commit-hooks.git

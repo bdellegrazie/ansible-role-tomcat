@@ -1,0 +1,9 @@
+---
+# sysvinit is used on RHEL6
+tomcat_service_mgr: sysvinit
+
+tomcat_dependencies:
+  - gzip
+  - python-lxml
+  - tar
+  - tomcat-native

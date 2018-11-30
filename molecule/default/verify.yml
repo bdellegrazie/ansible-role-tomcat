@@ -25,7 +25,7 @@
     - name: Execute Inspec tests
       delegate_to: localhost
       connection: local
-      command: "{{ inspec_bin }} exec {{ item }} -t docker://instance --reporter=cli --no-color"
+      command: "{{ inspec_bin }} exec {{ item }} -t docker://{{ inventory_hostname_short }} --reporter=cli --no-color"
       register: test_results
       with_items: "{{ test_files.files | map(attribute='path') | list }}"
       when: test_files is successful

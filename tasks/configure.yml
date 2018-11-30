@@ -153,3 +153,29 @@
     mode: "u=rw,g=r,o="
   when: tomcat_secure_serverinfo_hide | bool
   notify: Restart Tomcat
+
+- block:
+    - name: create setenv.sh
+      become: true
+      file:
+        path: "{{ tomcat_catalina_base }}/bin/setenv.sh"
+        group: root
+        owner: root
+        mode: "u=rw,g=r,o=r"
+        state: touch
+
+    # Classpath can only be configured in setenv.sh
+    - name: setenv.sh classpath settings
+      become: true
+      lineinfile:
+        path: "{{ tomcat_catalina_base }}/bin/setenv.sh"
+        group: root
+        owner: root
+        mode: "u=rw,g=r,o=r"
+        create: true
+        backrefs: true
+        regexp: "^CLASSPATH=.*$"
+        line: CLASSPATH="{{ tomcat_catalina_classpath | join(':') }}"
+        state: present
+      notify: Restart Tomcat
+  when: tomcat_catalina_classpath | length > 0

@@ -62,7 +62,11 @@ tomcat_log4j2_conf_template: 'log4j2-tomcat.xml.j2'
 tomcat_log4j2_conf_copy: true
 
 tomcat_limit_nofile: 16384
+tomcat_service_umask: "0007"
 
+tomcat_service_mgr: "{{ ansible_service_mgr }}"
+tomcat_service_conf_systemd: tomcat.systemd.j2
+tomcat_service_conf_sysvinit: tomcat.sysvinit.j2
 tomcat_service_manage: true
 tomcat_service_enable: true
 tomcat_service_notify: true

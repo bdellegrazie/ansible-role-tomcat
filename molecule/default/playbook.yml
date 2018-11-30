@@ -14,7 +14,6 @@
       tomcat_secure_httpheader_filter: true
       tomcat_secure_setcharacterencoding_filter: true
       tomcat_secure_failedrequest_filter: true
-      tomcat_service_force: true
   post_tasks:
     - name: Test WebApp
       copy:

@@ -1,15 +1,26 @@
 ---
 - block:
+    - name: Sysvinit init File
+      become: true
+      template:
+        dest: /etc/init.d/tomcat
+        src: "{{ tomcat_service_conf_sysvinit }}"
+        group: root
+        owner: root
+        mode: "u=rwx,go=rx"
+      when: tomcat_service_mgr == 'sysvinit'
+      notify:
+        - Restart Tomcat
+
     - name: Systemd Unit File
       become: true
       template:
         dest: /etc/systemd/system/tomcat.service
-        src: tomcat.systemd.j2
+        src: "{{ tomcat_service_conf_systemd }}"
         group: root
         owner: root
         mode: "u=rw,go=r"
-      when:
-        - ansible_service_mgr == 'systemd'
+      when: tomcat_service_mgr == 'systemd'
       notify:
         - Systemd Daemon-Reload
         - Restart Tomcat

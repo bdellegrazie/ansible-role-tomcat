@@ -1,7 +1,4 @@
 ---
-- name: OS Dependent Vars
-  include_vars: "family-{{ ansible_os_family | lower }}.yml"
-
 - name: Dependencies
   become: true
   package:

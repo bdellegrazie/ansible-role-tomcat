@@ -1,0 +1,22 @@
+---
+port:
+  tcp:8080:
+    listening: true
+
+# 15 character limit on process names
+process:
+  java:
+    running: true
+
+service:
+  tomcat:
+    enabled: true
+    running: true
+
+http:
+  http://localhost:8080/:
+    status: 200
+    timeout: 30
+    # title is this only if ServerInfo hiding is enabled
+    body:
+      - "/<title>Web Server<\\/title>/"

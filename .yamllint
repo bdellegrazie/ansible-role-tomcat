@@ -1,8 +1,8 @@
+---
 extends: default
 ignore: |
   .pre-commit-config.yaml
   .travis.yml
-  vendor/
 
 rules:
   braces:
@@ -14,6 +14,3 @@ rules:
   comments:
     require-starting-space: false
   line-length: disable
-  # NOTE(retr0h): Templates no longer fail this lint rule.
-  #               Uncomment if running old Molecule templates.
-  # truthy: disable

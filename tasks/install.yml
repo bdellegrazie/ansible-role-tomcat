@@ -58,7 +58,6 @@
     src: "{{ tomcat_cache_dir }}/tomcat-{{ tomcat_version }}.tar.gz"
     remote_src: true
     creates: "{{ tomcat_expand_dir }}/apache-tomcat-{{ tomcat_version }}"
-    extra_opts: "--preserve"
     owner: root
     group: "{{ tomcat_group }}"
     mode: "u=rwx,g=rx,o="

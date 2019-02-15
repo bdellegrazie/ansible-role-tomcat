@@ -4,3 +4,6 @@ tomcat_dependencies:
   - libtcnative-1
   - python-lxml
   - tar
+
+tomcat_jre_home: /usr/lib/jvm/java-8-openjdk-amd64/jre
+tomcat_java_home: /usr/lib/jvm/java-8-openjdk-amd64

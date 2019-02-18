@@ -14,6 +14,7 @@
       tomcat_secure_httpheader_filter: true
       tomcat_secure_setcharacterencoding_filter: true
       tomcat_secure_failedrequest_filter: true
+      tomcat_service_timeout_stop_sec: 10
   post_tasks:
     - name: Test WebApp
       copy:

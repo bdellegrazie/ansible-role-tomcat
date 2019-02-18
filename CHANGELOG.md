@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- Configurable Stop Timeout for service
+- Include delay after Tomcat startup during molecule test
 ### Changed
 - Switched to Goss for tests
 ### Deprecated

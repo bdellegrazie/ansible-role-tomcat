@@ -26,7 +26,7 @@ CATALINA_BASE=${CATALINA_BASE:="{{ tomcat_catalina_base }}"}
 CATALINA_OPTS=${CATALINA_OPTS:="{{ tomcat_catalina_opts | join(' ') }}"}
 JAVA_OPTS=${JAVA_OPTS:="{{ tomcat_java_opts | join(' ') }}"}
 RUNAS_USER=${RUNAS_USER:="{{ tomcat_user }}"}
-WAITFOR=${WAITFOR:=3}
+WAITFOR=${WAITFOR:={{ tomcat_service_timeout_stop_sec }}}
 CATALINA_PID="/var/run/${prog}.pid"
 RUN_SCRIPT="${CATALINA_HOME}/bin/catalina.sh"
 TOMCAT_LOG="${TOMCAT_LOG:-${CATALINA_BASE}/logs/catalina.out}"

@@ -24,9 +24,11 @@ User={{ tomcat_user }}
 Group={{ tomcat_group }}
 UMask={{ tomcat_service_umask }}
 LimitNOFILE={{ tomcat_limit_nofile | int }}
+PIDFile={{ tomcat_catalina_base }}/temp/tomcat.pid
+TimeoutStopSec={{ tomcat_service_timeout_stop_sec }}
 RestartSec=10
 Restart=always
-SuccessExitStatus=SIGKILL
+SuccessExitStatus=143 SIGKILL
 
 [Install]
 WantedBy=multi-user.target

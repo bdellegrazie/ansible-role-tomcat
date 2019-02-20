@@ -4,6 +4,9 @@
   package:
     name: "{{ tomcat_dependencies }}"
     state: present
+  register: _install
+  until: _install is succeeded
+  retries: 3
   notify: Restart Tomcat
 
 - name: Create Group

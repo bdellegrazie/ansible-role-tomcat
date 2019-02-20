@@ -19,4 +19,3 @@ repos:
     hooks:
       - id: ansible-lint
         files: \.(yaml|yml)$
-        exclude: molecule/default/tests/test_ca_certificates.yml

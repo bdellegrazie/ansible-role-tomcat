@@ -24,7 +24,7 @@ galaxy_info:
         - all
 
   galaxy_tags:
-    - apache_tomcat
+    - apache
     - tomcat
 
 dependencies: []

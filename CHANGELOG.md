@@ -7,13 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 ### Changed
-- Ansible 2.7.9 for tests
-- Molecule update (minor)
-- Pre-commit update (minor)
 ### Deprecated
 ### Removed
 ### Fixed
 ### Security
+
+## [v1.2.2] - 26-03-2019
+### Changed
+- Ansible 2.7.9 for tests
+- Molecule update (minor)
+- Pre-commit update (minor)
+- Default Tomcat version updated to 9.0.17 (was 9.0.12)
+- Log4J library updated to 2.11.2 (was 2.11.1)
 
 ## [v1.2.1]
 ### Added

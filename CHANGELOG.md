@@ -12,7 +12,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 
-## [v1.2.2] - 26-03-2019
+## [v1.3.0] - 2019-08-14
+### Changed
+- Ansible 2.8.3 for tests
+- Molecule update (minor)
+- Pre-commit update (minor)
+- Default Tomcat version updated to 9.0.22 (was 9.0.17)
+- Log4J library updated to 2.12.1 (was 2.11.2)
+
+## [v1.2.2] - 2019-03-26
 ### Changed
 - Ansible 2.7.9 for tests
 - Molecule update (minor)
@@ -50,6 +58,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Log4j2 config corrected
 
+[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.2...HEAD
+[v1.3.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.2...v1.3.0
+[v1.2.2]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.1...v1.2.2
+[v1.2.1]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.0...v1.2.1
+[v1.2.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.1...v1.2.0
+[v1.1.1]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.1.0...v1.1.1
+[v1.1.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.9...v1.1.0
+[v1.0.9]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.8...v1.0.9
 [v1.0.8]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.7...v1.0.8
 [v1.0.7]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.6...v1.0.7
 [v1.0.6]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.0.5...v1.0.6

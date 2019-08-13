@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   vars:
-    tomcat_version: "9.0.12"
+    tomcat_version: "9.0.22"
   roles:
     - role: ansible-role-tomcat
       tomcat_server_xml_template: "9.0/server.xml.j2"

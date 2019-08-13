@@ -29,7 +29,9 @@
       protocol="org.apache.coyote.http11.Http11Nio2Protocol"
       redirectPort="{{ tomcat_secure_https_port }}"
       server="{{ tomcat_secure_serverinfo }}"
-    />
+    >
+      <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
+    </Connector>
 
 {% if tomcat_ssl_enable is defined and tomcat_ssl_enable | bool %}
     <Connector
@@ -37,9 +39,10 @@
       protocol="org.apache.coyote.http11.Http11Nio2Protocol"
       server="{{ tomcat_secure_serverinfo }}"
       SSLEnabled="true"
+      sslImplementationName="org.apache.tomcat.util.net.openssl.OpenSSLImplementation"
       >
         <UpgradeProtocol className="org.apache.coyote.http2.Http2Protocol" />
-        <SSLHostConfig protocols="TLSv1.2">
+        <SSLHostConfig protocols="TLSv1.2,TLSv1.3">
           <Certificate certificateKeyFile="conf/localhost-rsa-key.pem"
                        certificateFile="conf/localhost-rsa-cert.pem"
                        certificateChainFile="conf/localhost-rsa-chain.pem"

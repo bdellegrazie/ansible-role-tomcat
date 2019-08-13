@@ -12,6 +12,7 @@
 
 {# DefaultServlet
   showServerInfo set to *false* (default is true)
+  allowPartialPut set to *false* (default is true) as RFC 7233 defines range headers only useable by GET
 #}
     <servlet>
         <servlet-name>default</servlet-name>
@@ -26,6 +27,10 @@
         </init-param>
         <init-param>
             <param-name>showServerInfo</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>allowPartialPut</param-name>
             <param-value>false</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>

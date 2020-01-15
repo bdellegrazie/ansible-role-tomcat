@@ -7,9 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 ### Changed
+### Deprecated
+### Removed
+### Fixed
+### Security
+
+## [v1.3.1]
+### Added
+### Changed
 - Ansible updated to 2.9.2 for tests
 - Molecule updated (minor)
 - Pre-commit updates (minor)
+- Updated Tomcat to 9.0.30 (for tests)
 ### Deprecated
 ### Removed
 ### Fixed
@@ -61,7 +70,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Log4j2 config corrected
 
-[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.2...HEAD
+[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.3.1...HEAD
+[v1.3.1]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.3.0...v1.3.1
 [v1.3.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.2...v1.3.0
 [v1.2.2]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.1...v1.2.2
 [v1.2.1]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.0...v1.2.1

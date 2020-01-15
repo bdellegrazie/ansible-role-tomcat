@@ -1,5 +1,5 @@
 ---
-tomcat_version: '9.0.22'
+tomcat_version: '9.0.30'
 
 tomcat_cache_dir: /var/cache/ansible
 tomcat_expand_dir: /opt
@@ -57,7 +57,7 @@ tomcat_catalina_classpath_log4j2:
 tomcat_catalina_classpath: "{{ tomcat_log4j2_enable | ternary(tomcat_catalina_classpath_log4j2, []) | list }}"
 
 tomcat_log4j2_enable: true
-tomcat_log4j2_version: '2.12.1'
+tomcat_log4j2_version: '2.13.0'
 tomcat_log4j2_conf_template: 'log4j2-tomcat.xml.j2'
 tomcat_log4j2_conf_copy: true
 

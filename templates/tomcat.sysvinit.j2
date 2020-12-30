@@ -36,13 +36,13 @@ UMASK="{{ tomcat_service_umask }}"
 CDIR=$(pwd)
 
 {% if tomcat_jdk_use | bool %}
-JAVA_HOME={{ tomcat_java_home }}
+JAVA_HOME={{ tomcat_jdk_home or _tomcat_default_jdk_home }}
 if [ ! -d $JAVA_HOME ]; then
   echo "$JAVA_HOME doesn't exist!"
   exit 1
 fi
 {% else %}
-JRE_HOME={{ tomcat_jre_home }}
+JRE_HOME={{ tomcat_jre_home or _tomcat_default_jdk_home }}
 if [ ! -d $JRE_HOME ]; then
   echo "$JRE_HOME doesn't exist!"
   exit 1

@@ -1,6 +1,9 @@
 ---
 tomcat_dependencies:
   - gzip
-  - python-lxml
+  - python3-lxml
   - tar
   - tomcat-native
+
+_tomcat_default_jre_home: /usr/lib/jvm/jre
+_tomcat_default_jdk_home: /usr/lib/jvm/jdk

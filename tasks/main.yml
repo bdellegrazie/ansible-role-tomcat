@@ -1,8 +1,8 @@
 ---
-- name: OS Family Vars
+- name: OS Specific Vars
   include_vars: "{{ item }}"
   with_first_found:
-    - "family-{{ ansible_os_family | lower }}-{{ ansible_distribution_major_version }}.yml"
+    - "distro-{{ ansible_distribution | lower }}-{{ ansible_distribution_major_version }}.yml"
     - "family-{{ ansible_os_family | lower }}.yml"
 
 - include: install.yml

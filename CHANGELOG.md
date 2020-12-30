@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 ### Security
 
+## [v2.0.0] - 2020-12-30
+### Changed
+- Ansible for tests updated to 2.9.16
+- Molecule for tests updated
+- Pre-commits updated
+- Tomcat updated to 9.0.41
+- BREAKING: Set JDK/JRE home variables if not using the default JRE for the OS.
+### Removed
+- Support for RedHat/CentOS 6
+
 ## [v1.3.1]
 ### Added
 ### Changed
@@ -70,7 +80,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Log4j2 config corrected
 
-[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.3.1...HEAD
+[Unreleased]: https://github.com/olivierlacan/keep-a-changelog/compare/v2.0.0...HEAD
+[v2.0.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.3.1...v2.0.0
 [v1.3.1]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.3.0...v1.3.1
 [v1.3.0]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.2...v1.3.0
 [v1.2.2]: https://github.com/olivierlacan/keep-a-changelog/compare/v1.2.1...v1.2.2

@@ -1,34 +1,30 @@
----
-dist: xenial
-sudo: required
-
+dist: focal
 language: python
 python:
-  - "3.6"
-
+- '3.8'
 services:
-  - docker
-
+- docker
 cache:
   bundler: true
   directories:
-    - $HOME/.cache/pip
-    - $HOME/.gilt/clone
-
+  - "$HOME/.cache/pip"
+  - "$HOME/.gilt/clone"
 before_cache:
-  - rm -f $HOME/.cache/pip/log/debug.log
-
+- rm -f $HOME/.cache/pip/log/debug.log
 before_install:
-  - sudo apt-get update
-  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
-  - pip install pipenv
-
+- curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+- sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+- sudo apt-get update
+- sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+- pip install pipenv
 install:
-  - pipenv install --dev
-
+- echo "$DOCKER_APIKEY" | docker login -u "$DOCKER_LOGIN" --password-stdin
+- pipenv install --dev
 script:
-  # Run tests
-  - pipenv run molecule test
-
+- pipenv run molecule test
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
+env:
+  global:
+  - secure: uJTqJ6XpihvJ1/pzoSI9Az3ZS3u7llVMe7EWwiACYCfO8U2pzOx0AYG3VY4gKWEK65P8oP8WkCOJ7685tJjo/ZljT0TtiyZhJaOgU9cmD8kU/shbdy6TXlwZqkAcjNu5ikPBLd8P5mBefB7o4GFRzTsxSRbzQ7/TGXa+8IuU06Iksa3gr0VqGAyOXATdBxAhySuecqL18opPy2MAxw/uZPPyUK9dJ+ihHx1+tRjFbLxP04D6Gd8w45JUmM11CGdDzUMArIiTrKKm1DwkMnkoOXt3MHXHkzIgwhHeYKa3lAq9YPMS80lfx8Ywia5WZlIVNDxASdr/SjC3yaRsavUHdLMwxZwYQD+L6UeapcIuaP6UJDjBAe2LnZg0n3krfKXUKC/1Zq5t/LWhqNFlHIoF3JcAwR5Z+2Kq7vqEGhoVG0ifmy1Ex1EWKX2O53S33OKAvNenUMNOOkq2D7qdKNxvzpHLT8mOI0vF7wqQwSDRMJv6X+JoUpoHJK/9OkaF+S+nJ/Dn/Yu+LB7eXIzU04X/EJMMDDVND/5nTZY+i1Jx1pEBfNoOtrbgV2NelSKyZ7WY/kVxIx3tJx8zwM1UbiscDuLbBtssgcIZPmSW8155IGLzruOH7OMg89wbvxG19ZioyKuAxWKyKvnxXl3NpCFWjwsWhhkPha1w5/BgZMKUAhA=
+  - secure: BxNuh1Ip63egHZpeP1d3XPcwhUvkrs8UbVoA8zS0QGA0XuyDvwlv062Wp1xYU1H4C+wzqwA5FPrsRRfK8XfhQ3ON65AU1ACpKycT1ugBOwpkv+1Q2dnHsKRPwYAhKT+rI21/trp27b2PgDMlCFi01/C2nSrCOCBIXm4oevEEFjb6pZVe6qH5oj0BBAXTtKamcG5K6gXq6iaj5RSQYq/L59ewT0CMsshfj1lxfUimHJDD/1J8xJyNqLfVgxWHrOlrXYzSoEq8+V6aZvqyyXQ0Q4QkVcr/dm7zgE/SwSjb9RTEtgJKi+YM0Aii5cwRQQhfiz5YxMHzEmPewMrStWvn0iXHoT5GoRpE+ll//z0mpE4R+oy5UzexrDxtScf8c03sL29jImnUPg5II4ImhwXUcuAx4hOPvPx2xZ3RSMo06ukRqNNW57JkxAeMGBPKG50FV272d7d6pWsY2qcJvzdJtadrmVrYnsMzRfhflHhJpXafzf461c2Mw49yHr5WO1DI9mi1v5a3mUFtUP52lD8Qb5WaoDhkng5Cg3NsnJ09UVUwEaf8xNHKxCau3A2ZJcgpl7WxQWbKwh4lP8LW9iCerAbAIvo/EBLc3uaaT4kPmoZiNjPZpfaJkcV/ogxfPlbPVlV2wVroR99JQ565qI3uPtBegNu7e5VQn8L8bhwaB3A=

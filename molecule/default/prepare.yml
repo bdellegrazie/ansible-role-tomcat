@@ -1,12 +1,46 @@
 ---
 - hosts: all
+  tasks:
+    - name: Update package cache (Debian, Ubuntu)
+      become: true
+      apt:
+        update_cache: true
+      when: (ansible_os_family | lower) == 'debian'
+      ignore_errors: true  # Necessary as snapshot repos expire
+
+    - name: Update package cache (Redhat)
+      become: true
+      yum:
+        update_cache: true
+      when:
+        - (ansible_os_family | lower) == 'redhat'
+      ignore_errors: true  # Necessary as snapshot repos expire
+
+    - name: Create man directories
+      become: true
+      file:
+        path: "{{ item }}"
+        owner: root
+        group: root
+        mode: "u=rwx,go=rx"
+        state: directory
+      loop:
+        - /usr/share/man/man1
+        - /usr/share/man/man7
+      when: (ansible_os_family | lower) == 'debian'
+
+- hosts: all
   roles:
-    - geerlingguy.java
-  pre_tasks:
-    # CentOS provides epel-release package, use that
-    - name: Install epel
+    - role: geerlingguy.repo-epel
+      when:
+        - (ansible_os_family | lower) == 'redhat'
+        - (ansible_distribution | lower) != 'fedora'
+    - role: geerlingguy.java
+      when: (ansible_os_family | lower) != 'debian'
+  tasks:
+    - name: Default Java (Debian)
+      become: user
       package:
-        name:
-          - epel-release
-          - cronie
-      when: ansible_os_family | lower == 'redhat'
+        name: default-jre-headless
+        state: present
+      when: (ansible_os_family | lower) == 'debian'

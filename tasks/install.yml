@@ -33,10 +33,13 @@
   notify: Restart Tomcat
 
 - name: Necessary Dirs
-  become:
+  become: true
   file:
     path: "{{ item }}"
     state: directory
+    owner: root
+    group: root
+    mode: "u=rwx,go=rx"
   with_items:
     - "{{ tomcat_cache_dir }}"
     - "{{ tomcat_expand_dir }}"

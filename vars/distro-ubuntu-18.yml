@@ -5,5 +5,5 @@ tomcat_dependencies:
   - python3-lxml
   - tar
 
-_tomcat_default_jre_home: /usr/lib/jvm/default-java/jre
+_tomcat_default_jre_home: /usr/lib/jvm/default-java
 _tomcat_default_jdk_home: /usr/lib/jvm/default-java

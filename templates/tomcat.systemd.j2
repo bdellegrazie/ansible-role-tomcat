@@ -6,9 +6,9 @@ After=syslog.target network.target
 Type=forking
 
 {% if tomcat_jdk_use | bool %}
-Environment=JAVA_HOME={{ tomcat_java_home }}
+Environment=JAVA_HOME={{ tomcat_jdk_home or _tomcat_default_jdk_home }}
 {% else %}
-Environment=JRE_HOME={{ tomcat_jre_home }}
+Environment=JRE_HOME={{ tomcat_jre_home or _tomcat_default_jre_home }}
 {% endif %}
 Environment='JAVA_OPTS={{ tomcat_java_opts | join(" ") }}'
 Environment=CATALINA_PID={{ tomcat_catalina_base }}/temp/tomcat.pid

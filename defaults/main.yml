@@ -1,10 +1,10 @@
 ---
-tomcat_version: '9.0.30'
+tomcat_version: '9.0.41'
 
 tomcat_cache_dir: /var/cache/ansible
 tomcat_expand_dir: /opt
 
-#tomcat_maven_repository_url:
+tomcat_maven_repository_url: https://repo1.maven.org/maven2
 tomcat_maven_validate_certs: true
 
 tomcat_group_manage: true
@@ -18,8 +18,9 @@ tomcat_user_home: /var/lib/tomcat
 
 tomcat_catalina_home: "{{ tomcat_expand_dir }}/apache-tomcat-{{ tomcat_version }}"
 tomcat_catalina_base: /var/lib/tomcat
-tomcat_jre_home: /usr/lib/jvm/jre
-tomcat_java_home: /usr/lib/jvm/jdk
+# Set jre/jdk home explicitly to disable use of default JRE/JDK
+tomcat_jre_home: ~
+tomcat_jdk_home: ~
 tomcat_jdk_use: false
 
 # Optional
@@ -57,7 +58,7 @@ tomcat_catalina_classpath_log4j2:
 tomcat_catalina_classpath: "{{ tomcat_log4j2_enable | ternary(tomcat_catalina_classpath_log4j2, []) | list }}"
 
 tomcat_log4j2_enable: true
-tomcat_log4j2_version: '2.13.0'
+tomcat_log4j2_version: '2.14.0'
 tomcat_log4j2_conf_template: 'log4j2-tomcat.xml.j2'
 tomcat_log4j2_conf_copy: true
 
